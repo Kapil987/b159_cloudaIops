@@ -99,6 +99,7 @@ def scenario_4():
         Director(
             name="Christopher Nolan",
             contact={"email": "nolan@example.com", "phone": "not-a-number"},
+            # contact={"email": "nolan@example.com", "phone": "9991234567"},
         )
     except ValidationError as e:
         print(f"Error path shows the full nested location, not just 'phone':\n{e}--")

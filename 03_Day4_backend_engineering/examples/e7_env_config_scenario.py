@@ -1,36 +1,9 @@
-"""
-Example 4 — manual if-checks vs. pydantic-settings for .env config,
-side by side.
-
-Run:
-    uv run python examples/e7_env_config_scenario.py
-
-Same 5 config fields (API_KEY, DATABASE_URL, PORT, DEBUG, MAX_RETRIES)
-loaded two ways in one file so you see the difference in one shot
-instead of comparing across separate runs. Needs a `.env` file next to
-this one (see e7_env_config_scenario.env.example) — copy it to `.env` in
-this folder before running.
-
-Try it broken (delete a field from .env, or set PORT to a non-numeric
-string) and watch how differently each half of this file reacts.
-"""
 import os
-
 from dotenv import load_dotenv
-from pydantic import ValidationError
-from pydantic_settings import BaseSettings
+
 
 load_dotenv()
 
-
-# ---------------------------------------------------------------------------
-# APPROACH 1 — manual if-checks (the way most people start out)
-#
-# This is not a strawman — this is genuinely how a lot of real projects
-# read config, especially early on. Read it top to bottom and count how
-# many things it does NOT check for, compared to what it looks like it's
-# checking for.
-# ---------------------------------------------------------------------------
 def load_config_manually() -> dict:
     print("--- Approach 1: manual if-checks ---")
 
@@ -51,61 +24,20 @@ def load_config_manually() -> dict:
     # Did you remember to convert it? Half of manual configs forget this
     # exact line, and nothing here would have caught that until PORT gets
     # used somewhere that requires an int (e.g. binding a socket).
-    port = int(port)  # <-- this line is doing ALL the real validation
-
-    # Optional fields with defaults — every one of these needs its own
-    # repeated if/else pattern. This is the part that scales badly: 5
-    # fields here means 5 near-duplicate blocks; 30 fields in a real app
-    # means 30, each one a place a mistake can hide.
-    debug = os.environ.get("DEBUG", "false").lower() == "true"
-    max_retries = int(os.environ.get("MAX_RETRIES", "3"))
+    # port = int(port)  # <-- this line is doing ALL the real validation
 
     print("Manual config loaded (if we got here, no exception was raised).")
     return {
         "api_key": api_key,
         "database_url": database_url,
-        "port": port,
-        "debug": debug,
-        "max_retries": max_retries,
+        "port": port
     }
 
 
-# ---------------------------------------------------------------------------
-# APPROACH 2 — pydantic-settings (declare the shape once, get validation
-# for free)
-# ---------------------------------------------------------------------------
-class Settings(BaseSettings):
-    api_key: str
-    database_url: str
-    port: int  # <-- just declaring the TYPE is the whole validation rule
-    debug: bool = False
-    max_retries: int = 3
-
-    class Config:
-        env_file = ".env"
-        # pydantic-settings matches env var names case-insensitively by
-        # default, so API_KEY in .env maps to api_key here automatically.
-
-
-def load_config_with_pydantic() -> "Settings":
-    print("\n--- Approach 2: pydantic-settings ---")
-    settings = Settings()
-    print("Pydantic config loaded.")
-    return settings
-
 
 if __name__ == "__main__":
-    try:
-        manual = load_config_manually()
-        print(manual)
-    except RuntimeError as e:
-        print(f"Manual approach failed with: {e}")
-
-    try:
-        typed = load_config_with_pydantic()
-        print(typed)
-    except ValidationError as e:
-        print(f"Pydantic approach failed with:\n{e}")
+    manual = load_config_manually()
+    print(manual)
 
 
 # ---------------------------------------------------------------------------

@@ -1,0 +1,149 @@
+
+@baseUrl = http://127.0.0.1:8000
+
+
+###############################################################################
+# SCENARIO 1: The silently wrong type
+###############################################################################
+
+### 1A. POST - ID as a numeric string
+# Expected: 200 OK
+# Pydantic converts "5" into integer 5
+
+POST {{baseUrl}}/movies
+Content-Type: application/json
+
+{
+    "id": "1",
+    "title": "Inception",
+    "genre": "Sci-Fi"
+}
+
+### add another movie
+POST {{baseUrl}}/movies
+Content-Type: application/json
+
+{
+    "id": 2,
+    "title": "Intersteller",
+    "genre": "Sci-Fi"
+}
+
+### 1B. POST - ID as a non-numeric string
+# Expected: 422 Unprocessable Entity
+# "5abc" cannot be converted into an integer
+
+POST {{baseUrl}}/movies
+Content-Type: application/json
+
+{
+    "id": "5abc",
+    "title": "Inception",
+    "genre": "Sci-Fi"
+}
+
+
+### 1C. GET - Retrieve all movies
+# Check whether only valid movies were added
+
+GET {{baseUrl}}/movies
+Accept: application/json
+
+
+###############################################################################
+# SCENARIO 2: The bug hiding in plain sight
+###############################################################################
+
+### 2A. POST - Add a movie
+# Expected: 200 OK
+# Add a movie before testing the PUT endpoint
+
+POST {{baseUrl}}/movies
+Content-Type: application/json
+
+{
+    "id": 2,
+    "title": "Intersteller",
+    "genre": "Sci-Fi"
+}
+
+
+### 2B. PUT - Update the existing movie
+# Expected: 200 OK
+# The response shows updated_movie
+# But the list actually stores the update_movie FUNCTION!
+
+PUT {{baseUrl}}/movies/1
+Content-Type: application/json
+
+{
+    "id": 2,
+    "title": "Inception (Updated)",
+    "genre": "Thriller"
+}
+
+
+### 2C. GET - Retrieve movies after the update
+# Observe the response carefully.
+# Expected: Response validation/serialization error (500)
+# The list now contains a function instead of a Movie object.
+
+GET {{baseUrl}}/movies
+Accept: application/json
+
+
+###############################################################################
+# SCENARIO 3: Missing field vs extra field
+###############################################################################
+
+### 3A. POST - Missing required field (genre)
+# Expected: 422 Unprocessable Entity
+# Pydantic requires the genre field
+
+POST {{baseUrl}}/movies/strict-demo
+Content-Type: application/json
+
+{
+    "id": 10,
+    "title": "Dune"
+}
+
+
+### 3B. POST - Extra unknown field (rating)
+# Expected: 200 OK
+# Pydantic v2 ignores extra fields by default
+
+POST {{baseUrl}}/movies/strict-demo
+Content-Type: application/json
+
+{
+    "id": 11,
+    "title": "Dune",
+    "genre": "Sci-Fi",
+    "rating": 9.5
+}
+
+
+###############################################################################
+# SCENARIO 4: Blocking endpoint in a crowd
+###############################################################################
+
+### 4A. GET - Single slow request
+# Expected: Takes approximately 5 seconds
+# Observe hello and bye in the server terminal
+
+GET {{baseUrl}}/slow
+
+
+### 4B. GET - First concurrent request
+# Execute this request and 4C simultaneously
+# Observe the print order in the server terminal
+
+GET {{baseUrl}}/slow
+
+
+### 4C. GET - Second concurrent request
+# Execute this request and 4B simultaneously
+# Both requests will block the event loop because of time.sleep()
+
+GET {{baseUrl}}/slow

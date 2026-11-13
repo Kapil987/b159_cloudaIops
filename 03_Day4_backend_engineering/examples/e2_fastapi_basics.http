@@ -1,0 +1,58 @@
+
+@baseUrl = http://127.0.0.1:8000
+
+
+### Step 1: Smallest possible GET endpoint
+GET {{baseUrl}}/
+Accept: application/json
+
+
+### Step 2: Path parameter - valid integer
+GET {{baseUrl}}/movies/7
+Accept: application/json
+
+
+### Step 3: Path parameter - invalid integer
+# Expected: 422 Unprocessable Entity
+GET {{baseUrl}}/movies/abc
+Accept: application/json
+
+
+### Step 4A: Query parameter - genre specified
+GET {{baseUrl}}/search?genre=Sci-Fi
+Accept: application/json
+
+
+### Step 4B: Query parameter - default value
+# Expected: genre = Any
+GET {{baseUrl}}/search
+Accept: application/json
+
+
+### Step 5A: POST - arbitrary JSON body
+POST {{baseUrl}}/movies-raw
+Content-Type: application/json
+
+{
+    "anything": "goes",
+    "id": "not-even-a-number"
+}
+
+
+### Step 5B: POST - different JSON structure
+POST {{baseUrl}}/movies-raw
+Content-Type: application/json
+
+{
+    "title": "Interstellar",
+    "year": 2014,
+    "rating": 8.7,
+    "genres": ["Sci-Fi", "Drama"]
+}
+
+
+### Step 5C: POST - empty JSON object
+POST {{baseUrl}}/movies-raw
+Content-Type: application/json
+
+{}

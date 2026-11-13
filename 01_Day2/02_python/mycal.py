@@ -3,12 +3,12 @@
 #     return (result[1])
 
 def calmul(num1,num2):
+    print('calmul was called')
     return (num1*num2)
 
 def calsub(num1,num2):
     return (num1-num2)
 # print('mycall.py called')
 
-# if __name__ == "__main__":
-print("mycal.py executed directly")
-print(calsub(4, 4))
+if __name__ == "__main__":
+    print("mycal.py got executed ")

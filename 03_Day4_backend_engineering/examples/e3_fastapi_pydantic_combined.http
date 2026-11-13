@@ -1,0 +1,139 @@
+
+@baseUrl = http://127.0.0.1:8000
+
+
+### Step 1A: POST - Add a valid movie
+# Expected: 200 OK
+# Movie should be added to the in-memory watchlist
+
+POST {{baseUrl}}/movies
+Content-Type: application/json
+
+{
+    "id": 1,
+    "title": "Inception",
+    "genre": "Sci-Fi"
+}
+
+
+### Step 1B: POST - Add another valid movie
+
+POST {{baseUrl}}/movies
+Content-Type: application/json
+
+{
+    "id": 2,
+    "title": "Interstellar",
+    "genre": "Sci-Fi"
+}
+
+
+### Step 1C: POST - Invalid ID (string instead of integer)
+# Expected: 422 Unprocessable Entity
+# FastAPI/Pydantic rejects the request before function execution
+
+POST {{baseUrl}}/movies
+Content-Type: application/json
+
+{
+    "id": "abc",
+    "title": "Inception",
+    "genre": "Sci-Fi"
+}
+
+
+### Step 1D: POST - Missing required field
+# Expected: 422 Unprocessable Entity
+# The genre field is missing
+
+POST {{baseUrl}}/movies
+Content-Type: application/json
+
+{
+    "id": 3,
+    "title": "The Dark Knight"
+}
+
+
+### Step 1E: POST - Invalid field type
+# Expected: 422 Unprocessable Entity
+# The title must be a string
+
+POST {{baseUrl}}/movies
+Content-Type: application/json
+
+{
+    "id": 4,
+    "title": 12345,
+    "genre": "Action"
+}
+
+
+### Step 2: GET - Retrieve all movies
+# Expected: 200 OK
+# Returns all successfully added movies
+
+GET {{baseUrl}}/movies
+Accept: application/json
+
+
+### Step 3A: PUT - Update an existing movie
+# Expected: 200 OK
+# Updates movie with ID 1
+
+PUT {{baseUrl}}/movies/1
+Content-Type: application/json
+
+{
+    "id": 1,
+    "title": "Inception (Updated)",
+    "genre": "Sci-Fi"
+}
+
+
+### Step 3B: PUT - Update a non-existing movie
+# Expected: Movie not found
+# Your current implementation returns this as a normal 200 response
+
+PUT {{baseUrl}}/movies/999
+Content-Type: application/json
+
+{
+    "id": 999,
+    "title": "Unknown Movie",
+    "genre": "Drama"
+}
+
+
+### Step 3C: PUT - Invalid path parameter
+# Expected: 422 Unprocessable Entity
+# movie_id must be an integer
+
+PUT {{baseUrl}}/movies/abc
+Content-Type: application/json
+
+{
+    "id": 1,
+    "title": "Inception",
+    "genre": "Sci-Fi"
+}
+
+
+### Step 3D: PUT - Invalid request body
+# Expected: 422 Unprocessable Entity
+
+PUT {{baseUrl}}/movies/1
+Content-Type: application/json
+
+{
+    "id": "invalid",
+    "title": "Inception",
+    "genre": "Sci-Fi"
+}
+
+
+### Step 4: GET - Verify updated watchlist
+# Check whether the movie was updated
+
+GET {{baseUrl}}/movies
+Accept: application/json

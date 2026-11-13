@@ -8,7 +8,6 @@ Then open http://127.0.0.1:8000/docs and try each scenario below, or use
 curl. For each: read the docstring, PREDICT the response, then try it.
 """
 import time
-from typing import List
 
 from fastapi import FastAPI
 from pydantic import BaseModel
@@ -22,7 +21,7 @@ class Movie(BaseModel):
     genre: str
 
 
-watchlist: List[Movie] = []
+watchlist: list[Movie] = []
 
 
 # ---------------------------------------------------------------------------
@@ -80,14 +79,21 @@ def get_movies():
 # Step 3 — GET and inspect the list to see the bug:
 #   curl -s http://127.0.0.1:8000/movies
 # ---------------------------------------------------------------------------
+#watchlist = [
+#     Movie(id=1, title="Inception", genre="Sci-Fi"),
+#     Movie(id=2, title="Intersteller", genre="Sci-Fi")
+# ]
+#
 @app.put("/movies/{movie_id}")
 def update_movie(movie_id: int, updated_movie: Movie):
+    print('Watchlist:--> ',watchlist)
     for index, movie in enumerate(watchlist):
-        if movie.id == movie_id:
+        if movie.id == movie_id: # movie_id = 1
             watchlist[index] = update_movie  # BUG: should be `updated_movie`
+            # watchlist[index] = updated_movie  # BUG: should be `updated_movie`
+            # print('updated_movie',update_movie)
             return updated_movie
     return {"error": "Movie not found"}
-
 
 # ---------------------------------------------------------------------------
 # Scenario 3 — Missing vs. extra field, over HTTP

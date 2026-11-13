@@ -7,6 +7,8 @@ app = FastAPI()
 """
 Runs in main thread, No awaitable operation, cannot be paused
 sequentail order
+curl http://127.0.0.1:8000/1
+
 Request 1
     Hello
     Bye
@@ -17,7 +19,7 @@ Request 2
 """
 @app.get("/1")
 async def endpoint1(): # Processed Sequentially
-    print("hello")
+    print("hello Stubborn chef")
     time.sleep(5)  # Blocking I/O Opertion, cannot be awaited
     # function execution cannot be paused, the event loop is blocked while waiting for the result
     print("bye")
@@ -40,7 +42,7 @@ Request 2
 """
 @app.get("/2")
 async def endpoint2(): # Processed Concurrently
-    print("hello")
+    print("Multi-tasker chef")
     await asyncio.sleep(5) # Non blocking IO operations, it can be awaited
     # function execution will pause, during this pause the event loop can handle other tasks
     print("bye")
