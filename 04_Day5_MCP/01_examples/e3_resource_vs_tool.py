@@ -37,8 +37,10 @@ _TICKET_SCHEMA: dict[str, Any] = {
 
 # The RIGHT way: a resource. No side effects, just data, addressed by a
 # URI. A Host can fetch this proactively without any model "decision."
+# A URL is a type of URI, but not every URI is a URL, file:///home/user/data.json	File URI
+# Resource tells the AI additional information it may need to make a good decision.
 @mcp.resource(
-    "tickets://schema",
+    "tickets://schema", # URI (Uniform Resource Identifier)
     name="ticket_schema",
     description="JSON schema for the structured ticket payload agents should produce before calling create_ticket.",
     mime_type="application/json",
@@ -51,6 +53,7 @@ def ticket_schema_resource() -> dict[str, Any]:
 # model now has to actively decide to "call a tool" just to read static
 # data that never changes — that's the wrong mental model for this kind
 # of information, even though the output is identical.
+# Tool schema tells the AI how to call a tool.
 @mcp.tool(
     name="get_ticket_schema",
     description="Return the JSON schema for a ticket payload.",

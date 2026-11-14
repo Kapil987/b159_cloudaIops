@@ -235,7 +235,7 @@ Important: The second example is deliberately incorrect async usage. Use `await 
 ## **2. What is the default thread limit?**
 
 FastAPI uses Starlette, which uses AnyIO's thread mechanism.
-
+The 40-thread default applies to `synchronous def endpoints`,
 Default:
 
 ```
@@ -327,4 +327,50 @@ These are theoretical aggregate limits, assuming the default limiter in each pro
 
 For your ServiceNow integration, if you use synchronous `requests`, a normal `def` endpoint is perfectly reasonable. If you use `httpx.AsyncClient`, use `async def`.
 
+With **2 Uvicorn workers**, you have two separate processes. Each process has its own main thread, event loop, and thread pool.
+
+```
+                 Uvicorn Server
+                       |
+             ┌─────────┴─────────┐
+             |                   |
+       Worker Process 1    Worker Process 2
+             |                   |
+        Main Thread          Main Thread
+             |                   |
+        Event Loop 1         Event Loop 2
+             |                   |
+       ┌─────┼─────┐       ┌─────┼─────┐
+       |     |     |       |     |     |
+     Async  Async Async  Async  Async Async
+     Req 1  Req 2 Req 3  Req 4  Req 5 Req 6
+             |                   |
+       Thread Pool 1       Thread Pool 2
+       (40 tokens)         (40 tokens)
+             |                   |
+       ┌─────┼─────┐       ┌─────┼─────┐
+       |     |     |       |     |     |
+      T1    T2    T3      T1    T2    T3
+       |     |     |       |     |     |
+      Sync  Sync  Sync    Sync  Sync  Sync
+      Req   Req   Req     Req   Req   Req
+```
+
+### **Important implications**
+
+| Resource              | Worker 1 | Worker 2 | Total |
+| --------------------- | -------- | -------- | ----- |
+| Event loops           | 1        | 1        | 2     |
+| Default thread tokens | 40       | 40       | 80    |
+| Processes             | 1        | 1        | 2     |
+
+**Example:** If two requests execute `time.sleep(5)` inside an `async def` endpoint:
+
+- If both land on Worker 1: approximately 10 seconds.
+- If they land on different workers: approximately 5 seconds.
+
+This is because blocking one event loop does not block the event loop in another worker process.
+
 Further reading: [Starlette Thread Pool documentation](https://starlette.dev/threadpool/).
+
+

@@ -89,8 +89,8 @@ def update_movie(movie_id: int, updated_movie: Movie):
     print('Watchlist:--> ',watchlist)
     for index, movie in enumerate(watchlist):
         if movie.id == movie_id: # movie_id = 1
-            watchlist[index] = update_movie  # BUG: should be `updated_movie`
-            # watchlist[index] = updated_movie  # BUG: should be `updated_movie`
+            # watchlist[index] = update_movie  # BUG: should be `updated_movie`
+            watchlist[index] = updated_movie  # BUG: should be `updated_movie`
             # print('updated_movie',update_movie)
             return updated_movie
     return {"error": "Movie not found"}

@@ -6,7 +6,7 @@ Here is the easiest way to understand the difference using a real-world analogy:
 
 ### The Analogy: The Reference Manual vs. The Coffee Machine
 
-Imagine you are working at a café:
+Imagine you are working at a cafe:
 
 * **A Tool is like a Coffee Machine (`@mcp.tool`):** It performs an *action*. It takes raw ingredients, runs a process, and outputs a latte. You only use it when a customer explicitly asks for coffee, and you have to consciously decide to press the button.
 * **A Resource is like the Recipe Book / Menu taped to the wall (`@mcp.resource`):** It doesn't *do* anything. It's just static reference data. Nobody "runs" a recipe book; you simply **read** it to know the rules.
