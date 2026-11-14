@@ -8,6 +8,7 @@ authors = [
 ]
 requires-python = ">=3.14"
 dependencies = [
+    "fastapi>=0.162.7",
     "fastmcp>=4.1.8",
 ]
 

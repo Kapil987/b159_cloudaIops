@@ -16,7 +16,7 @@ once and prints a result.
 """
 from mcp.server.mcpserver import MCPServer
 
-mcp = MCPServer("day4-minimal-server")
+mcp = MCPServer("minimal-mcp-server")
 
 
 @mcp.tool(

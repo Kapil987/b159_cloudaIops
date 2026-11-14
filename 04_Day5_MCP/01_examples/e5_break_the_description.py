@@ -27,10 +27,11 @@ from pydantic import BaseModel, Field
 
 from mcp.server.mcpserver import MCPServer
 
-mcp = MCPServer("day4-description-comparison-server")
+mcp = MCPServer("e5-description-comparison-server")
 
 
 class TicketDraft(BaseModel):
+    # or we can say this as short description in service now terms
     title: str = Field(..., description="Concise ticket title.") # The ... (Ellipsis) means "This field is required; there is no default value."
     description: str = Field(..., description="Full issue details.")
     priority: str = Field("medium", description="low, medium, or high.")

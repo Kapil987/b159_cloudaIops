@@ -20,11 +20,12 @@ from pydantic import BaseModel, Field
 
 from mcp.server.mcpserver import MCPServer
 
-mcp = MCPServer("day4-structured-tool-server")
+mcp = MCPServer("e2-structured-tool-server")
 
 
 class TicketDraft(BaseModel):
-    title: str = Field(..., min_length=5, description="A short ticket title.")
+    # title: str = Field(..., min_length=5, description="A short ticket title.")
+    short_description: str = Field(..., min_length=5, description="A short ticket title.")
     description: str = Field(..., min_length=10, description="Full details of the issue.")
     priority: str = Field("medium", description="One of: low, medium, high.")
 
@@ -49,9 +50,9 @@ _tickets: dict[str, TicketDraft] = {}
     structured_output=True,
 )
 def create_ticket(draft: TicketDraft) -> TicketResult:
-    ticket_id = f"TICKET-{len(_tickets) + 1:04d}"
+    ticket_id = f"TICKET-{len(_tickets) + 1:04d}" # generate ticket number as TICKET-0001
     _tickets[ticket_id] = draft
-    return TicketResult(ticket_id=ticket_id, title=draft.title, priority=draft.priority)
+    return TicketResult(ticket_id=ticket_id, title=draft.short_description, priority=draft.priority)
 
 
 if __name__ == "__main__":

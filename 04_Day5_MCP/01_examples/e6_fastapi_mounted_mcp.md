@@ -41,3 +41,23 @@ Because of the order, here is how incoming requests are handled by Uvicorn:
 ### Why do this instead of running them separately?
 
 Instead of forcing you to run your FastAPI backend on port `8000` and your MCP server on port `8001` (which requires managing two separate terminal processes and CORS configurations), **mounting lets your AI agent and your web app live under one unified backend URL**.
+
+
+curl -i -X POST http://127.0.0.1:8000/mcp \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json, text/event-stream" \
+  -d '{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "tools/call",
+    "params": {
+      "name": "create_ticket",
+      "arguments": {
+        "draft": {
+          "title": "ServiceNow API Issue",
+          "description": "Unable to authenticate with ServiceNow REST API.",
+          "priority": "high"
+        }
+      }
+    }
+  }'
