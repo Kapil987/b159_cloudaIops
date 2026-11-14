@@ -261,20 +261,6 @@ What to point out when teaching:
 
 ---
 
-## Suggested teaching rhythm
-
-1. Show the file. Don't run it yet.
-2. Ask the "predict first" question and let people answer.
-3. Run it (or connect the Inspector) and reveal the answer.
-4. Ask: "What would you change to break it?" Then do it. e5 is built around this.
-5. Before e7, recap in one line each: tool, resource, prompt, description, transport.
-6. After e8, ask students to add a third tool (for example, close an incident). Have them list which files they had to touch and which stayed the same.
-
-Notes:
-- These examples are tested on `mcp` 2.3.0. The Python MCP client connects to e1 to e5 and lists the expected tools, resources and prompts.
-- e2 to e5 print a few lines to stdout before starting, for teaching. The Python client ignores them. If another Host logs a parse warning, that's why. e7 and e8 keep stdout clean.
-- The mermaid diagrams in this README were written but not rendered. Open this file in the VS Code Markdown preview to check them.
-
 ## Installations
 - https://nodejs.org/en/download -- chose Windows Installer (.msi)
 - npx -y @modelcontextprotocol/inspector
