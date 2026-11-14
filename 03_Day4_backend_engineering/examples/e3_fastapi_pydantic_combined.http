@@ -77,11 +77,11 @@ GET {{baseUrl}}/movies
 Accept: application/json
 
 
-### Step 3A: PUT - Update an existing movie
+### Step 3A: PATCH - Update an existing movie
 # Expected: 200 OK
 # Updates movie with ID 1
 
-PUT {{baseUrl}}/movies/1
+PATCH {{baseUrl}}/movies/1
 Content-Type: application/json
 
 {
@@ -95,7 +95,7 @@ Content-Type: application/json
 # Expected: Movie not found
 # Your current implementation returns this as a normal 200 response
 
-PUT {{baseUrl}}/movies/999
+PATCH {{baseUrl}}/movies/999
 Content-Type: application/json
 
 {
@@ -109,7 +109,7 @@ Content-Type: application/json
 # Expected: 422 Unprocessable Entity
 # movie_id must be an integer
 
-PUT {{baseUrl}}/movies/abc
+PATCH {{baseUrl}}/movies/abc
 Content-Type: application/json
 
 {
@@ -122,7 +122,7 @@ Content-Type: application/json
 ### Step 3D: PUT - Invalid request body
 # Expected: 422 Unprocessable Entity
 
-PUT {{baseUrl}}/movies/1
+PATCH {{baseUrl}}/movies/1
 Content-Type: application/json
 
 {

@@ -7,7 +7,7 @@ This file puts them together — the combination is what `main.py` (the
 full watchlist API) is built from.
 
 Run:
-    uv run uvicorn examples.e3_fastapi_pydantic_combined:app --reload
+    uv run uvicorn e3_fastapi_pydantic_combined:app --reload
 
 Then open http://127.0.0.1:8000/docs for interactive testing, or use curl.
 """
@@ -33,6 +33,8 @@ class Movie(BaseModel):
 
 # watchlist: List[Movie] = [] is called a type annotation (type hint) in Python.
 # It tells Python developers and tools what kind of data the variable is expected to hold.
+# 2. How do you add Movie instances?
+# watchlist.append(movie1)
 
 watchlist: list[Movie] = []  # in-memory storage — resets every server restart
 
@@ -85,7 +87,7 @@ def get_movies():
 #        -H "Content-Type: application/json" \
 #        -d '{"id": 1, "title": "Inception (Updated)", "genre": "Sci-Fi"}'
 # ---------------------------------------------------------------------------
-@app.put("/movies/{movie_id}")
+@app.patch("/movies/{movie_id}")
 def update_movie(movie_id: int, updated_movie: Movie):
     print('watchlist is',watchlist)
     for index, movie in enumerate(watchlist):
