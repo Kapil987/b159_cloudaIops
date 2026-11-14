@@ -54,7 +54,7 @@ Blue = fake data, safe to run anywhere. Green = talks to a real ServiceNow insta
 | e4 | [e4_prompt_template.py](e4_prompt_template.py) | Prompt | A reusable, parameterised message the Host can offer as a menu item. | stdio |
 | e5 | [e5_break_the_description.py](e5_break_the_description.py) | Tool descriptions | Two identical tools, different `description`. The model only knows what you wrote there. | stdio |
 | e6 | [e6_fastapi_mounted_mcp.py](e6_fastapi_mounted_mcp.py) | HTTP transport | Mount MCP inside FastAPI. `/mcp` speaks the MCP protocol, it is not a plain REST route. | streamable-http |
-| e7 | [../e7_servicenow_minimal/](../e7_servicenow_minimal/README.md) | Real API | One file, one tool: create a real ServiceNow incident. Credentials from `.env`. | stdio |
+| e7 | [e7_server.py](e7_server.py/README.md) | Real API | One file, one tool: create a real ServiceNow incident. Credentials from `.env`. | stdio |
 | e8 | [../e8_servicenow_with_settings/](../e8_servicenow_with_settings/README.md) | Structure | Settings class, models, client class, two tools, over HTTP. The shape you would grow into a real service. | streamable-http |
 
 ---
