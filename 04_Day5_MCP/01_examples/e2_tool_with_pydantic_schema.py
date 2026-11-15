@@ -16,17 +16,22 @@ create_ticket()'s body, or before your code even runs?
 """
 from __future__ import annotations
 
+from mcp.server.mcpserver import MCPServer
 from pydantic import BaseModel, Field
 
-from mcp.server.mcpserver import MCPServer
+# import logging
+from app_logging.shared_logging_config import setup_logging
+
+logger = setup_logging(__name__) # configure BEFORE importing modules that log at import time
 
 mcp = MCPServer("e2-structured-tool-server")
 
 
 class TicketDraft(BaseModel):
     # title: str = Field(..., min_length=5, description="A short ticket title.")
-    short_description: str = Field(..., min_length=5, description="A short ticket title.")
-    description: str = Field(..., min_length=10, description="Full details of the issue.")
+    # short_description: str = Field(..., min_length=5, description="A short ticket title.")
+    short_description: str = Field(default="VPN connection is down", min_length=5, description="A short ticket title.")
+    description: str = Field(default="Unable to connect to the corporate VPN.", min_length=10, description="Full details of the issue.")
     priority: str = Field("medium", description="One of: low, medium, high.")
 
 
@@ -50,16 +55,42 @@ _tickets: dict[str, TicketDraft] = {}
     structured_output=True,
 )
 def create_ticket(draft: TicketDraft) -> TicketResult:
-    ticket_id = f"TICKET-{len(_tickets) + 1:04d}" # generate ticket number as TICKET-0001
-    _tickets[ticket_id] = draft
-    return TicketResult(ticket_id=ticket_id, title=draft.short_description, priority=draft.priority)
+    try:
+        # raise ValueError("Simulated ticket creation failure")
+        ticket_id = f"TICKET-{len(_tickets) + 1:04d}"
+        _tickets[ticket_id] = draft
+
+        result = TicketResult(
+            ticket_id=ticket_id,
+            title=draft.short_description,
+            priority=draft.priority
+        )
+
+        logger.debug("Ticket created successfully: %s", result.model_dump())
+
+        return result
+
+    except Exception:
+        logger.exception("Failed to create ticket")
+        raise
+
+# def create_ticket(draft: TicketDraft) -> TicketResult:
+#     ticket_id = f"TICKET-{len(_tickets) + 1:04d}" # generate ticket number as TICKET-0001
+#     _tickets[ticket_id] = draft
+#     result = TicketResult(
+#         ticket_id=ticket_id,
+#         title=draft.short_description,
+#         priority=draft.priority
+#     )
+#     logger.debug("Ticket created successfully: %s", result.model_dump())
+#     return result
 
 
 if __name__ == "__main__":
     # Try this locally without a Host, just to see the schema MCPServer
     # generates from TicketDraft — this is exactly what gets sent to a
     # Host during discovery, before any tool is ever called.
-    print("TicketDraft JSON schema (this is what the model sees):")
-    print(TicketDraft.model_json_schema())
-
+    # print("TicketDraft JSON schema (this is what the model sees):")
+    # print(TicketDraft.model_json_schema())
+    logger.info("Starting MCP server")
     mcp.run()

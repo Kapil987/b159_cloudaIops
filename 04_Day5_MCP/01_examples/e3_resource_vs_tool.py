@@ -22,6 +22,9 @@ from typing import Any
 
 from mcp.server.mcpserver import MCPServer
 
+from app_logging.shared_logging_config import setup_logging
+
+logger = setup_logging(__name__) 
 mcp = MCPServer("day4-resource-vs-tool-server")
 
 _TICKET_SCHEMA: dict[str, Any] = {
@@ -46,6 +49,7 @@ _TICKET_SCHEMA: dict[str, Any] = {
     mime_type="application/json",
 )
 def ticket_schema_resource() -> dict[str, Any]:
+    logger.debug(f"ticket schema resource {_TICKET_SCHEMA}",)
     return _TICKET_SCHEMA
 
 
@@ -60,15 +64,10 @@ def ticket_schema_resource() -> dict[str, Any]:
     structured_output=True,
 )
 def get_ticket_schema_tool() -> dict[str, Any]:
+    logger.debug(f"ticket schema{_TICKET_SCHEMA}",)
     return _TICKET_SCHEMA
 
 
 if __name__ == "__main__":
-    print("Resource version returns:")
-    print(ticket_schema_resource())
-    print("\nTool version returns the exact same thing:")
-    print(get_ticket_schema_tool())
-    print("\nSame output. Different protocol role. Now run mcp.run() and")
-    print("inspect how each is listed differently to a connecting Host.")
-
+    logger.info("Starting MCP server")
     mcp.run()

@@ -1,0 +1,31 @@
+2026-11-15 07:09:52,630 [INFO] e2-structured-tool: Starting MCP server
+2026-11-15 07:09:52,630 [INFO] e2-structured-tool: Starting MCP server
+2026-11-15 07:29:17,266 [INFO] e2-structured-tool: Starting MCP server
+2026-11-15 07:29:17,266 [INFO] e2-structured-tool: Starting MCP server
+2026-11-15 07:30:50,592 [INFO] e2-structured-tool: Starting MCP server
+2026-11-15 07:30:50,592 [INFO] e2-structured-tool: Starting MCP server
+2026-11-15 07:31:55,564 [INFO] e2-structured-tool: Starting MCP server
+2026-11-15 07:31:55,564 [INFO] e2-structured-tool: Starting MCP server
+2026-11-15 07:32:11,861 [INFO] e2-structured-tool: Ticket created successfully: {'ticket_id': 'TICKET-0001', 'title': 'fsafas sfgdsagfdsg', 'priority': 'medium'}
+2026-11-15 07:32:11,861 [INFO] e2-structured-tool: Ticket created successfully: {'ticket_id': 'TICKET-0001', 'title': 'fsafas sfgdsagfdsg', 'priority': 'medium'}
+2026-11-15 07:35:55,273 [INFO] e2-structured-tool: Starting MCP server
+2026-11-15 07:36:08,920 [INFO] e2-structured-tool: Ticket created successfully: {'ticket_id': 'TICKET-0001', 'title': 'hello hye by', 'priority': 'medium'}
+2026-11-15 07:37:31,074 [INFO] e2-structured-tool: Starting MCP server
+2026-11-15 07:38:32,064 [INFO] e2-structured-tool: Starting MCP server
+2026-11-15 07:49:58,226 [INFO] e2-structured-tool: Starting MCP server
+2026-11-15 07:50:20,655 [DEBUG] e2-structured-tool: Ticket created successfully: {'ticket_id': 'TICKET-0001', 'title': 'this is our short description for vpn down', 'priority': 'medium'}
+2026-11-15 07:56:35,556 [INFO] __main__: Starting MCP server
+2026-11-15 07:56:50,060 [DEBUG] __main__: Ticket created successfully: {'ticket_id': 'TICKET-0001', 'title': 'vpn is down', 'priority': 'medium'}
+2026-11-15 07:59:22,484 [INFO] e2_tool_with_pydantic_schema.py: Starting MCP server
+2026-11-15 08:01:14,470 [INFO] e2_tool_with_pydantic_schema.py: Starting MCP server
+2026-11-15 08:01:20,984 [DEBUG] e2_tool_with_pydantic_schema.py: Ticket created successfully: {'ticket_id': 'TICKET-0001', 'title': 'VPN connection is down', 'priority': 'medium'}
+2026-11-15 08:06:09,195 [INFO] e2_tool_with_pydantic_schema.py: Starting MCP server
+2026-11-15 08:06:13,474 [ERROR] e2_tool_with_pydantic_schema.py: Failed to create ticket
+Traceback (most recent call last):
+  File "C:\Users\Administrator\Documents\b159_cloudaIops\04_Day5_MCP\01_examples\e2_tool_with_pydantic_schema.py", line 57, in create_ticket
+    raise ValueError("Simulated ticket creation failure")
+ValueError: Simulated ticket creation failure
+2026-11-15 08:18:30,433 [INFO] e3_resource_vs_tool.py: <module>: Starting MCP server
+2026-11-15 08:18:34,951 [DEBUG] e3_resource_vs_tool.py: get_ticket_schema_tool: ticket schema{'type': 'object', 'properties': {'title': {'type': 'string', 'minLength': 5}, 'description': {'type': 'string', 'minLength': 10}, 'priority': {'type': 'string', 'enum': ['low', 'medium', 'high']}}, 'required': ['title', 'description']}
+2026-11-15 08:21:09,381 [DEBUG] e3_resource_vs_tool.py: ticket_schema_resource: ticket schema resource {'type': 'object', 'properties': {'title': {'type': 'string', 'minLength': 5}, 'description': {'type': 'string', 'minLength': 10}, 'priority': {'type': 'string', 'enum': ['low', 'medium', 'high']}}, 'required': ['title', 'description']}
+2026-11-15 08:21:12,824 [DEBUG] e3_resource_vs_tool.py: ticket_schema_resource: ticket schema resource {'type': 'object', 'properties': {'title': {'type': 'string', 'minLength': 5}, 'description': {'type': 'string', 'minLength': 10}, 'priority': {'type': 'string', 'enum': ['low', 'medium', 'high']}}, 'required': ['title', 'description']}
