@@ -1,3 +1,47 @@
+## What if i do not use from __future__ import annotations?
+
+**On Python 3.14 and newer**, Python changed how annotations work (they are evaluated lazily by default), so the code runs fine without `from __future__ import annotations`. If you're on 3.14+, you won't see any error.
+
+**On Python 3.13 and older**, you do get the error. But note the error happens when the **function is defined**, not when you call it.
+
+## Why it fails (older Python)
+
+When Python runs a `class` block, it executes the lines inside **top to bottom**, one at a time. The name `Node` is only created **after the entire class block finishes**.
+
+```python
+class Node:
+    def set_next(self, other: Node) -> Node:   # Python reads the hints right here
+        ...
+# Only now does the name "Node" exist
+```
+
+When Python reaches the `def set_next(...)` line, it **immediately evaluates** `Node` in the hints (`other: Node` and `-> Node`). But the class isn't finished yet, so `Node` isn't a known name. Result:
+
+```
+NameError: name 'Node' is not defined
+```
+
+It's like writing a recipe that says "use the sauce from this recipe" before the sauce exists.
+
+## Try it yourself
+
+Run this on Python 3.13 or older:
+
+```python
+class Node:
+    def set_next(self, other: Node) -> Node:
+        pass
+```
+
+You get the error immediately, even without creating a `Node` object or calling `set_next`.
+
+Check your version with:
+
+```python
+import sys
+print(sys.version)
+```
+
 ## **1. What does this line mean?**
 
 ```

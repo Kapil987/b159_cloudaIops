@@ -14,12 +14,11 @@ PREDICT FIRST: if a Host sends {"title": "Hi"} (missing the required
 "description" field), where does the rejection happen — inside
 create_ticket()'s body, or before your code even runs?
 """
-from __future__ import annotations
+# from __future__ import annotations
 
 from mcp.server.mcpserver import MCPServer
 from pydantic import BaseModel, Field
 
-# import logging
 from app_logging.shared_logging_config import setup_logging
 
 logger = setup_logging(__name__) # configure BEFORE importing modules that log at import time

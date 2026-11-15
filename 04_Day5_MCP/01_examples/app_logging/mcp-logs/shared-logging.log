@@ -1,0 +1,3 @@
+2026-11-15 11:45:43,046 [INFO] e2_tool_with_pydantic_schema.py: <module>: Starting MCP server
+2026-11-15 11:50:34,843 [INFO] e2_tool_with_pydantic_schema.py: <module>: Starting MCP server
+2026-11-15 11:52:15,142 [DEBUG] e2_tool_with_pydantic_schema.py: create_ticket: Ticket created successfully: {'ticket_id': 'TICKET-0001', 'title': 'Production database is down', 'priority': 'high'}
