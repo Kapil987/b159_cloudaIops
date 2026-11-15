@@ -20,7 +20,7 @@ class Settings(BaseSettings):
     servicenow_timeout_seconds: float = Field(30.0, alias="SERVICENOW_TIMEOUT_SECONDS")
 
     # Where this MCP server listens. Localhost by default: the server holds your ServiceNow
-    # credentials and has no login of its own, so do not expose it without adding auth.
+    # credentials and has no login of its own, so do not expose it 
     mcp_host: str = Field("127.0.0.1", alias="MCP_HOST")
     mcp_port: int = Field(8000, alias="MCP_PORT")
 

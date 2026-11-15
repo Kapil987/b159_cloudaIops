@@ -5,7 +5,7 @@ from typing import Literal
 
 from pydantic import BaseModel, Field
 
-
+# When creating the incident
 class IncidentDraft(BaseModel):
     short_description: str = Field(..., min_length=5, max_length=160, description="Concise incident title.")
     description: str = Field(..., min_length=10, description="Symptoms, impact, and what was already tried.")
@@ -14,14 +14,14 @@ class IncidentDraft(BaseModel):
     category: str | None = Field(None, description="e.g. software, hardware, network.")
     caller_id: str | None = Field(None, description="Caller sys_id, user name or email, if known.")
 
-
+# After creating an incident
 class IncidentResult(BaseModel):
     number: str | None = None
     sys_id: str
     state: str | None = None
     url: str
 
-
+# When retrieving an incident
 class IncidentDetails(BaseModel):
     number: str
     short_description: str | None = None

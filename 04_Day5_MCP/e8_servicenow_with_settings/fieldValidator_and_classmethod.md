@@ -83,12 +83,6 @@ Pydantic takes that returned clean string (`[https://dev12345.service-now.com](h
 
 | Component | What it is | What it does in this code |
 | --- | --- | --- |
-| **`@field_validator("servicenow_instance")`** | The **Target Selector** | Tells Pydantic: *"Intercept the `servicenow_instance` field and run this cleaning logic on its incoming value."*
-
- |
-| **`@classmethod`** | The **Timing / State Fixer** | Tells Python: *"Run this function on the class blueprint (`cls`), because the final object (`self`) doesn't exist yet while we are still validating."*
-
- |
+| **`@field_validator("servicenow_instance")`** | The **Target Selector** | Tells Pydantic: *"Intercept the `servicenow_instance` field and run this cleaning logic on its incoming value."*|
+| **`@classmethod`** | The **Timing / State Fixer** | Tells Python: *"Run this function on the class blueprint (`cls`), because the final object (`self`) doesn't exist yet while we are still validating."*|
 | **Working Together** | The **Data Cleaner** | Safely intercepts raw, messy input text, fixes it up, and ensures your app only starts up with clean, valid data.
-
- |

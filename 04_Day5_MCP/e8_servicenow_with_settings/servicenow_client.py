@@ -10,15 +10,15 @@ from config import Settings
 from models import IncidentDetails, IncidentDraft, IncidentResult
 
 
-class ServiceNowError(RuntimeError):
+class ServiceNowError(RuntimeError): # RuntimeError is a built-in Python exception class. You don't need to import it from anywhere.
     """An expected failure (bad credentials, unreachable host, bad or unknown incident number). server.py shows it to the LLM."""
 
 
 class ServiceNowClient:
     def __init__(self, cfg: Settings) -> None:
         self._cfg = cfg
-        self._table = f"{cfg.servicenow_instance}/api/now/table/incident"
-        self._auth = (cfg.servicenow_username, cfg.servicenow_password.get_secret_value())
+        self._table = f"{cfg.servicenow_instance}/api/now/table/incident" # https://dev443316.service-now.com/api/now/table/incident
+        self._auth = (cfg.servicenow_username, cfg.servicenow_password.get_secret_value()) # You need .get_secret_value() because Pydantic's SecretStr does not return the actual password
 
     def _incident_url(self, sys_id: str) -> str:
         return f"{self._cfg.servicenow_instance}/nav_to.do?uri=incident.do?sys_id={sys_id}"
@@ -43,7 +43,7 @@ class ServiceNowClient:
             number=result.get("number"),
             sys_id=sys_id,
             state=result.get("state"),
-            url=self._incident_url(sys_id),
+            url=self._incident_url(sys_id), # sys_id
         )
 
     async def get_incident(self, number: str) -> IncidentDetails:

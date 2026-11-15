@@ -6,6 +6,8 @@
 - <img src="1_Create_dev_instance.png" width="1000" style="margin-right: 30px;">
 <br><br>
 
+sample url == https://YOURINSTANCEID_HERE.service-now.com/
+
 ## Click on your profile icon
 - <img src="2_click_on_profile.png" width="1000" style="margin-right: 30px;">
 <br><br>
