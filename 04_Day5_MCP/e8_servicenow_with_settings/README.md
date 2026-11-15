@@ -414,3 +414,8 @@ Claude Desktop's config file only launches **stdio** servers (`command` + `args`
 - **claude.ai web or mobile:** these can't reach `127.0.0.1`. You'd need a public HTTPS URL (ngrok, cloudflared, or a deployment), added under Settings → Connectors.
 
 Your endpoint has no authentication, so keep it bound to `127.0.0.1`, and add auth before ever exposing it through a tunnel.
+
+### References
+- https://www.servicenow.com/docs/r/api-reference/rest-apis/c_TableAPI.html
+- https://www.servicenow.com/docs/r/api-reference/rest-api-explorer/t_GetStartedCreateInt.html
+- https://www.servicenow.com/docs/r/platform-user-interface/r_NavigatingByURLExamples.html

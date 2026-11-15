@@ -7,7 +7,7 @@ from typing import Any
 import httpx
 
 from config import Settings
-from models import IncidentDraft, IncidentDetails, IncidentResult
+from models import IncidentDetails, IncidentDraft, IncidentResult
 
 
 class ServiceNowError(RuntimeError):
