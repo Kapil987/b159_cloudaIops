@@ -43,7 +43,7 @@ if __name__ == "__main__":
     example = draft_ticket_from_complaint(
         complaint="I can't log into the payroll portal, it's been down since this morning."
     )
-    print("Prompt template output (this is the string a Host would send to the model):\n")
-    print(example)
+    # print("Prompt template output (this is the string a Host would send to the model):\n")
+    # print(example)
 
     mcp.run()

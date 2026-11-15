@@ -4,14 +4,12 @@ npx @modelcontextprotocol/inspector uv run python e1_minimal_mcp_server.py
 ### stdio
 ```json
 "mcpServers": {
-     "servers": {
        "servicenow-minimal": {
          "type": "stdio",
          "command": "uv",
          "args": ["run", "--directory", "${workspaceFolder}/42_course_Sep/04_Day5_MCP",
                   "python", "e7_servicenow_minimal/server.py"]
        }
-     }
    }
 ```
 

@@ -11,3 +11,18 @@
 2026-11-15 12:28:55,181 [INFO] e2_tool_with_pydantic_schema.py: <module>: Starting MCP server
 2026-11-15 12:28:55,211 [INFO] e3_resource_vs_tool.py: <module>: Starting MCP server
 2026-11-15 13:25:45,036 [DEBUG] e3_resource_vs_tool.py: ticket_schema_resource: ticket schema resource {'type': 'object', 'properties': {'title': {'type': 'string', 'minLength': 5}, 'description': {'type': 'string', 'minLength': 10}, 'priority': {'type': 'string', 'enum': ['low', 'medium', 'high']}}, 'required': ['title', 'description']}
+2026-11-15 13:26:07,330 [INFO] e3_resource_vs_tool.py: <module>: Starting MCP server
+2026-11-15 13:26:07,342 [INFO] e2_tool_with_pydantic_schema.py: <module>: Starting MCP server
+2026-11-15 13:26:50,172 [DEBUG] e3_resource_vs_tool.py: get_ticket_schema_tool: ticket schema{'type': 'object', 'properties': {'short_description': {'type': 'string', 'minLength': 5}, 'description': {'type': 'string', 'minLength': 10}, 'urgency': {'type': 'string', 'enum': ['1', '2', '3'], 'default': '2'}, 'impact': {'type': 'string', 'enum': ['1', '2', '3'], 'default': '2'}}, 'required': ['short_description', 'description']}
+2026-11-15 13:53:51,233 [DEBUG] e3_resource_vs_tool.py: ticket_schema_resource: ticket schema resource {'type': 'object', 'properties': {'short_description': {'type': 'string', 'minLength': 5}, 'description': {'type': 'string', 'minLength': 10}, 'urgency': {'type': 'string', 'enum': ['1', '2', '3'], 'default': '2'}, 'impact': {'type': 'string', 'enum': ['1', '2', '3'], 'default': '2'}}, 'required': ['short_description', 'description']}
+2026-11-15 15:28:10,453 [INFO] e2_tool_with_pydantic_schema.py: <module>: Starting MCP server
+2026-11-15 15:28:49,699 [DEBUG] e2_tool_with_pydantic_schema.py: create_ticket: Ticket created successfully: {'ticket_id': 'TICKET-0001', 'title': 'VPN connection is down', 'priority': 'medium'}
+2026-11-15 15:29:04,525 [DEBUG] e2_tool_with_pydantic_schema.py: create_ticket: Ticket created successfully: {'ticket_id': 'TICKET-0002', 'title': 'VPN connection is down', 'priority': 'medium'}
+2026-11-15 15:29:08,049 [DEBUG] e2_tool_with_pydantic_schema.py: create_ticket: Ticket created successfully: {'ticket_id': 'TICKET-0003', 'title': 'VPN connection is down', 'priority': 'medium'}
+2026-11-15 15:38:13,983 [INFO] e3_resource_vs_tool.py: <module>: Starting MCP server
+2026-11-15 15:38:14,616 [INFO] e2_tool_with_pydantic_schema.py: <module>: Starting MCP server
+2026-11-15 15:51:03,421 [DEBUG] e2_tool_with_pydantic_schema.py: create_ticket: Ticket created successfully: {'ticket_id': 'TICKET-0001', 'title': 'Production database is down', 'priority': 'high'}
+2026-11-15 16:05:35,889 [INFO] e2_tool_with_pydantic_schema.py: <module>: Starting MCP server
+2026-11-15 16:05:39,152 [INFO] e3_resource_vs_tool.py: <module>: Starting MCP server
+2026-11-15 16:32:29,680 [DEBUG] e3_resource_vs_tool.py: ticket_schema_resource: ticket schema resource {'type': 'object', 'properties': {'short_description': {'type': 'string', 'minLength': 5}, 'description': {'type': 'string', 'minLength': 10}, 'urgency': {'type': 'string', 'enum': ['1', '2', '3'], 'default': '2'}, 'impact': {'type': 'string', 'enum': ['1', '2', '3'], 'default': '2'}}, 'required': ['short_description', 'description']}
+2026-11-15 16:33:59,914 [DEBUG] e3_resource_vs_tool.py: ticket_schema_resource: ticket schema resource {'type': 'object', 'properties': {'short_description': {'type': 'string', 'minLength': 5}, 'description': {'type': 'string', 'minLength': 10}, 'urgency': {'type': 'string', 'enum': ['1', '2', '3'], 'default': '2'}, 'impact': {'type': 'string', 'enum': ['1', '2', '3'], 'default': '2'}}, 'required': ['short_description', 'description']}
