@@ -3,7 +3,7 @@ Scenario 6 — Mount an MCP server inside FastAPI (closing the loop to
 26_service_now/fastapi_app.py).
 
 Run:
-    uv run uvicorn e6_fastapi_mounted_mcp:app --reload
+    uv run uvicorn e6_fastapi_mounted_mcp_st:app --reload
 
 Then:
     GET  http://127.0.0.1:8000/health   <- plain REST, curl-able normally
@@ -31,15 +31,14 @@ from contextlib import asynccontextmanager
 from typing import Any
 
 from fastapi import FastAPI
-from pydantic import BaseModel, Field
-
 from mcp.server.mcpserver import MCPServer
+from pydantic import BaseModel, Field
 
 # --- Same structured tool from Scenario 2, condensed ------------------
 
 
 class TicketDraft(BaseModel):
-    title: str = Field(..., min_length=5) # or we can say this as short description in service now terms
+    short_description: str = Field(..., min_length=5) # or we can say this as short description in service now terms
     description: str = Field(..., min_length=10)
     priority: str = Field("medium")
 
@@ -49,7 +48,7 @@ mcp = MCPServer("e6-fastapi-mounted-server")
 
 @mcp.tool(name="create_ticket", description="Create a support ticket.", structured_output=True)
 def create_ticket(draft: TicketDraft) -> dict[str, Any]:
-    return {"ticket_id": "TICKET-0001", "title": draft.title, "priority": draft.priority}
+    return {"ticket_id": "TICKET-0001", "title": draft.short_description, "priority": draft.priority}
 
 
 # --- FastAPI app ----------
@@ -60,7 +59,7 @@ mcp_asgi_app = mcp.streamable_http_app(
     json_response=True,
 )
 
-
+# Session manager need else we get RuntimeError: Task group is not initialized. Make sure to use run().
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     print("FastAPI lifespan started")

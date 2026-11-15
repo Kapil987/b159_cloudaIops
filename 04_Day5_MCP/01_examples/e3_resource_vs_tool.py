@@ -30,11 +30,20 @@ mcp = MCPServer("day4-resource-vs-tool-server")
 _TICKET_SCHEMA: dict[str, Any] = {
     "type": "object",
     "properties": {
-        "title": {"type": "string", "minLength": 5},
+        "short_description": {"type": "string", "minLength": 5},
         "description": {"type": "string", "minLength": 10},
-        "priority": {"type": "string", "enum": ["low", "medium", "high"]},
+        "urgency": {
+            "type": "string",
+            "enum": ["1", "2", "3"],
+            "default": "2"
+        },
+        "impact": {
+            "type": "string",
+            "enum": ["1", "2", "3"],
+            "default": "2"
+        }
     },
-    "required": ["title", "description"],
+    "required": ["short_description", "description"],
 }
 
 
