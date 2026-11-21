@@ -103,5 +103,119 @@ A free ServiceNow Personal Developer Instance works fine for testing.
 - **`.env` is read once at startup.** Edit it, then restart the server in the Host.
 - Needs `mcp>=2.3` (it imports `mcp.server.mcpserver`, not the old `fastmcp` module), `httpx` and `python-dotenv`.
 
+
+```json
+{
+  "result": {
+    "number": "INC0010006",
+    "sys_id": "cb8ae84283281710173fa4d0deaad3c2",
+    "short_description": "Test incident from Python",
+    "description": "Created using ServiceNow REST API",
+
+    "state": "1",
+    "incident_state": "1",
+    "active": "true",
+    "priority": "3",
+    "impact": "2",
+    "urgency": "2",
+    "severity": "3",
+    "category": "inquiry",
+    "subcategory": "",
+
+    "caller_id": "",
+    "opened_by": {
+      "link": "https://dev443316.service-now.com/api/now/table/sys_user/6816f79cc0a8016401c5a33be04be441",
+      "value": "6816f79cc0a8016401c5a33be04be441"
+    },
+    "assigned_to": "",
+    "assignment_group": "",
+
+    "approval": "not requested",
+    "approval_history": "",
+    "approval_set": "",
+    "upon_approval": "proceed",
+    "upon_reject": "cancel",
+
+    "made_sla": "true",
+    "sla_due": "",
+    "business_duration": "",
+    "business_stc": "",
+    "calendar_duration": "",
+    "calendar_stc": "",
+
+    "sys_created_on": "2026-11-15 14:08:35",
+    "sys_created_by": "admin",
+    "sys_updated_on": "2026-11-15 14:08:35",
+    "sys_updated_by": "admin",
+    "sys_mod_count": "0",
+    "sys_class_name": "incident",
+
+    "opened_at": "2026-11-15 14:08:35",
+    "resolved_at": "",
+    "resolved_by": "",
+    "closed_at": "",
+    "closed_by": "",
+    "closed_code": "",
+    "close_notes": "",
+
+    "reopen_count": "0",
+    "reopened_time": "",
+    "reopened_by": "",
+    "reassignment_count": "0",
+
+    "parent": "",
+    "parent_incident": "",
+    "child_incidents": "0",
+    "universal_request": "",
+
+    "cmdb_ci": "",
+    "business_service": "",
+    "service_offering": "",
+    "company": "",
+    "location": "",
+    "contract": "",
+    "delivery_plan": "",
+    "delivery_task": "",
+
+    "watch_list": "",
+    "additional_assignee_list": "",
+    "group_list": "",
+    "work_notes_list": "",
+    "comments": "",
+    "work_notes": "",
+    "comments_and_work_notes": "",
+
+    "work_start": "",
+    "work_end": "",
+    "time_worked": "",
+    "expected_start": "",
+    "due_date": "",
+    "follow_up": "",
+    "activity_due": "",
+
+    "business_impact": "",
+    "cause": "",
+    "hold_reason": "",
+    "route_reason": "",
+    "contact_type": "",
+    "notify": "1",
+    "knowledge": "false",
+    "order": "",
+    "origin_table": "",
+    "origin_id": "",
+    "task_effective_number": "INC0010006",
+    "correlation_display": "",
+    "correlation_id": "",
+    "sys_domain": {
+      "link": "https://dev443316.service-now.com/api/now/table/sys_user_group/global",
+      "value": "global"
+    },
+    "sys_domain_path": "/",
+    "sys_tags": "",
+    "user_input": "",
+    "escalation": "0"
+  }
+}
+```
 ## Next
 [e8](../e8_servicenow_with_settings/README.md) adds a settings class, Pydantic input/output models, a read tool, and runs over streamable-http instead of stdio.
