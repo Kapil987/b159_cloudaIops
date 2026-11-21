@@ -131,7 +131,7 @@ Example 2, the model guides the LLM. Field descriptions like `"1=high, 2=medium,
 
 Example 3, trimmed output. The raw ServiceNow response has fields like `sys_created_by`, `sla_due`, `opened_by` and many more. Returned as-is, all of that sits in the LLM's context for no benefit. `IncidentResult` returns four fields and `IncidentDetails` eight.
 
-### Why `@field_validator("servicenow_instance")` and `@classmethod`
+### Why `@field_validator("servicenow_instance")` and `@classmethod` in config.py
 
 `@field_validator("servicenow_instance")` runs a function on that one field right after pydantic reads it from `.env`. It can clean the value or reject it.
 

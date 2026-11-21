@@ -75,15 +75,15 @@ A free ServiceNow Personal Developer Instance works fine for testing.
 
 ## Test it
 1. **MCP Inspector** (easiest)
-   ```powershell
-   npx @modelcontextprotocol/inspector uv run python e7_servicenow_minimal/server.py
-   ```
-   Open Tools, then `create_incident`, fill the fields, Run. Check the incident exists in ServiceNow.
+```powershell
+npx @modelcontextprotocol/inspector uv run python e7_server.py
+```
+Open Tools, then `create_incident`, fill the fields, Run. Check the incident exists in ServiceNow.
 
 2. **VS Code** — add `.vscode/mcp.json`:
    ```json
    {
-     "servers": {
+     "mcpServers": {
        "servicenow-minimal": {
          "type": "stdio",
          "command": "uv",

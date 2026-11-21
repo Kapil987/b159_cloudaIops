@@ -13,8 +13,8 @@ ENV_FILE = Path(__file__).parent / ".env"
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=ENV_FILE, env_file_encoding="utf-8", extra="ignore")
-
-    servicenow_instance: str = Field(..., alias="SERVICENOW_INSTANCE")
+    # alias SERVICENOW_INSTANCE is read from .env and servicenow_instance is used in the code
+    servicenow_instance: str = Field(..., alias="SERVICENOW_INSTANCE") # The ... (Ellipsis) means the field is required
     servicenow_username: str = Field(..., alias="SERVICENOW_USERNAME")
     servicenow_password: SecretStr = Field(..., alias="SERVICENOW_PASSWORD")
     servicenow_timeout_seconds: float = Field(30.0, alias="SERVICENOW_TIMEOUT_SECONDS")
@@ -26,7 +26,7 @@ class Settings(BaseSettings):
 
     @field_validator("servicenow_instance")
     @classmethod
-    def normalize_instance(cls, value: str) -> str:
+    def normalize_instance(cls, value: str) -> str: # cls and Settings are two names for the same thing
         instance = value.strip().rstrip("/")
         if not instance:
             raise ValueError("SERVICENOW_INSTANCE cannot be empty")
@@ -34,5 +34,5 @@ class Settings(BaseSettings):
             instance = f"https://{instance}"
         return instance
 
-
+# Building the Settings object
 settings = Settings()  # fails fast at startup if anything is missing
