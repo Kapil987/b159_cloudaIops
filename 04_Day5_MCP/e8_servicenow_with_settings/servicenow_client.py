@@ -48,7 +48,7 @@ class ServiceNowClient:
 
     async def get_incident(self, number: str) -> IncidentDetails:
         number = number.strip().upper()
-        if not re.fullmatch(r"INC\d+", number):
+        if not re.fullmatch(r"INC\d+", number): # INC0010016
             raise ServiceNowError(f"'{number}' is not an incident number. Expected something like INC0010001.")
         params = {
             "number": number,  # plain field filter, no query language needed

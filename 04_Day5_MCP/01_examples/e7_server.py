@@ -60,7 +60,7 @@ async def create_incident(
     impact: Literal["1", "2", "3"] = "2",
 ) -> dict[str, Any]:
     """urgency / impact: 1 = high, 2 = medium, 3 = low."""
-    base = _instance_url()
+    base = _instance_url() # https://dev12345.service-now.com
     async with httpx.AsyncClient(timeout=30) as client:
         response = await client.post(
             f"{base}/api/now/table/incident",

@@ -88,3 +88,63 @@ and evaluation.
 It is especially useful when an application needs reusable prompts,
 model-provider flexibility, retrieval, tool integration, or composable
 processing steps.
+
+## | TypedDict | dataclass | Pydantic BaseModel |
+**Plain Python dataclasses do not validate at runtime.** Like TypedDict, the type hints are just hints. The difference is that a dataclass gives you an object with attribute access instead of a dict.
+
+**Proof**
+
+```python
+from dataclasses import dataclass
+from pydantic import BaseModel, ValidationError
+
+@dataclass
+class ContactDC:
+    name: str
+    email: str
+    phone: str
+
+class ContactPD(BaseModel):
+    name: str
+    email: str
+    phone: str
+
+print(ContactDC(name=123, email=None, phone=["x"]))   # works, no error
+
+try:
+    ContactPD(name=123, email=None, phone=["x"])
+except ValidationError as e:
+    print(e)                                           # raises
+```
+
+**Main differences**
+
+| | TypedDict | dataclass | Pydantic BaseModel |
+|---|---|---|---|
+| Result at runtime | `dict` | class instance | class instance |
+| Access | `r["name"]` | `r.name` | `r.name` |
+| Runtime validation | No | No | Yes |
+| Type coercion (`"25"` → `25`) | No | No | Yes (in default mode) |
+| Field descriptions for the LLM | via `Annotated` | not built in | `Field(description=...)` |
+| Extras (`.model_dump()`, JSON schema, constraints like `ge=0`) | No | No | Yes |
+
+**An important detail in your example**
+
+In your dataclass, the descriptions are Python comments (`# The name of the person`). Comments are not part of the schema sent to the model, so the model only sees the field names, types, and the class docstring. With Pydantic, `Field(description=...)` is included in the schema, which usually gives better extraction quality.
+
+**A nuance for `create_agent`**
+
+As far as I know, LangChain's `create_agent` parses the model's output for non-Pydantic schemas (dataclass, TypedDict) using Pydantic's `TypeAdapter` internally. If so, a bad model output could still raise an error there even though a plain dataclass does no validation on its own. I'm not certain this holds in your version, so you can test it by feeding it wrong data:
+
+```python
+from pydantic import TypeAdapter
+TypeAdapter(ContactDC).validate_python({"name": 123, "email": "a", "phone": "b"})
+```
+
+Either way, don't count on this behavior. If validation matters, choose Pydantic explicitly.
+
+**When to use which**
+
+- **Pydantic**: the default choice for extraction, agents, and anything where wrong or missing fields would cause problems. Use it when you want validation, constraints, nested models, or rich descriptions.
+- **dataclass**: when you want a lightweight object with attribute access and trust the output, or your codebase already uses dataclasses. You can add validation with `from pydantic.dataclasses import dataclass`.
+- **TypedDict**: when you want a plain dict, for example to pass straight into JSON or other dict-based code, and you don't need validation.
