@@ -1,0 +1,29 @@
+[project]
+name = "05-langchain"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "kr-pc", email = "kr-pc@gmail.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "langchain[openai]>=1.5.2",
+    "langchain-groq>=1.2.1",
+    "python-dotenv>=1.2.4",
+]
+
+[project.scripts]
+05-langchain = "_05_langchain:main"
+
+[tool.uv.build-backend]
+module-name = "_05_langchain"
+
+[build-system]
+requires = ["uv_build>=0.13.9,<0.14.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "ipykernel>=7.4.0",
+]
