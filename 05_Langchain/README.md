@@ -128,20 +128,6 @@ except ValidationError as e:
 | Field descriptions for the LLM | via `Annotated` | not built in | `Field(description=...)` |
 | Extras (`.model_dump()`, JSON schema, constraints like `ge=0`) | No | No | Yes |
 
-**An important detail in your example**
-
-In your dataclass, the descriptions are Python comments (`# The name of the person`). Comments are not part of the schema sent to the model, so the model only sees the field names, types, and the class docstring. With Pydantic, `Field(description=...)` is included in the schema, which usually gives better extraction quality.
-
-**A nuance for `create_agent`**
-
-As far as I know, LangChain's `create_agent` parses the model's output for non-Pydantic schemas (dataclass, TypedDict) using Pydantic's `TypeAdapter` internally. If so, a bad model output could still raise an error there even though a plain dataclass does no validation on its own. I'm not certain this holds in your version, so you can test it by feeding it wrong data:
-
-```python
-from pydantic import TypeAdapter
-TypeAdapter(ContactDC).validate_python({"name": 123, "email": "a", "phone": "b"})
-```
-
-Either way, don't count on this behavior. If validation matters, choose Pydantic explicitly.
 
 **When to use which**
 
