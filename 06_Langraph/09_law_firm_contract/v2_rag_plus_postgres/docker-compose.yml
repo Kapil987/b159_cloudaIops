@@ -1,0 +1,21 @@
+# Postgres for the contract facts. Start with:  docker compose up -d
+# Host port 5433 (not 5432) so it does not clash with a Postgres you may already run.
+services:
+  postgres:
+    image: postgres:18.4
+    environment:
+      POSTGRES_USER: lawfirm
+      POSTGRES_PASSWORD: lawfirm
+      POSTGRES_DB: lawfirm
+    ports:
+      - "5433:5432"
+    volumes:
+      - lawfirm_pgdata:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lawfirm -d lawfirm"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  lawfirm_pgdata:

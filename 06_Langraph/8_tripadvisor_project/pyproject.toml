@@ -1,0 +1,11 @@
+[project]
+name = "tripadvisor-project-simplified"
+version = "0.1.0"
+description = "Simplified TripAdvisor-style trip-planning LangGraph agent for the course"
+requires-python = ">=3.11"
+dependencies = [
+    "langchain>=1.0.0",
+    "langgraph>=0.2.0",
+    "langchain-groq>=0.2.0",
+    "python-dotenv>=1.0.1",
+]
