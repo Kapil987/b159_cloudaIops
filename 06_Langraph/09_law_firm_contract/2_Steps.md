@@ -1,6 +1,6 @@
 ## Langraph project law firm
 1) Create a .env from .env.example file
-2) Create an s3 bucket example `langraph-lawfirm-contracts-1234567890-us-east-1-an`
+2) Install aws cli and configure aws keys with suitable bedrocka dn s3 permission. Create an s3 bucket example `langraph-lawfirm-contracts-1234567890-us-east-1-an`
 3) uv sync, activate the environement in the terminal
 4) Don't upload the files by handing in the console (Terminal or UI) use `uv run python scripts/upload_to_kb.py`, this also creates, .metadata.json files
 
@@ -40,6 +40,9 @@ aws bedrock-agent delete-knowledge-base --region us-east-1 --knowledge-base-id <
 - docker compose -f v2_rag_plus_postgres/docker-compose.yml up -d
 - uv run python v2_rag_plus_postgres/seed.py
 
+## Refernces are in
+- v2_rag_plus_postgres\README.md
+- questions are in v1_rag_only\sample_questions.md
 
 ## How sample_data.py was made, Contract Metadata: How the Structured Table Gets Built
 

@@ -1,0 +1,65 @@
+{
+  "content": "",
+  "additional_kwargs": {
+    "reasoning_content": "We need to call the function get_exchange_rate with currency_pair 'USD_EUR'.",
+    "tool_calls": [
+      {
+        "id": "fc_c21201cc-a629-49c5-ad16-2784044b79cc",
+        "function": {
+          "arguments": "{\"currency_pair\":\"USD_EUR\"}",
+          "name": "get_exchange_rate"
+        },
+        "type": "function"
+      }
+    ]
+  },
+  "response_metadata": {
+    "token_usage": {
+      "completion_tokens": 45,
+      "prompt_tokens": 141,
+      "total_tokens": 186,
+      "completion_time": 0.04912508,
+      "completion_tokens_details": {
+        "reasoning_tokens": 18
+      },
+      "prompt_time": 0.00783699,
+      "prompt_tokens_details": null,
+      "queue_time": 0.367132026,
+      "total_time": 0.05696207
+    },
+    "model_name": "openai/gpt-oss-20b",
+    "system_fingerprint": "fp_487ff4efc6",
+    "service_tier": "on_demand",
+    "finish_reason": "tool_calls",
+    "logprobs": null,
+    "model_provider": "groq"
+  },
+  "type": "ai",
+  "name": null,
+  "id": "lc_run--01a2210e-6a8e-73b4-ba76-a85c1da81aee-0",
+  "tool_calls": [
+    {
+      "name": "get_exchange_rate",
+      "args": {
+        "currency_pair": "USD_EUR"
+      },
+      "id": "fc_c21201cc-a629-49c5-ad16-2784044b79cc",
+      "type": "tool_call"
+    }
+  ],
+  "invalid_tool_calls": [],
+  "usage_metadata": {
+    "input_tokens": 141,
+    "output_tokens": 45,
+    "total_tokens": 186,
+    "output_token_details": {
+      "reasoning": 18
+    }
+  }
+}
+
+## Model skipped answering and requested get_exchange_rate("USD_EUR")
+Message list in step1 ->  [{'role': 'user', 'content': "What's the exchange rate for USD to EUR?"}, AIMessage(content='', additional_kwargs={'reasoning_content': "We need to call the get_exchange_rate function with currency_pair 'USD_EUR'.", 'tool_calls': [{'id': 'fc_2bcbd118-35f4-4ea1-9e66-fddd20b7462e', 'function': {'arguments': '{"currency_pair":"USD_EUR"}', 'name': 'get_exchange_rate'}, 'type': 'function'}]}, response_metadata={'token_usage': {'completion_tokens': 45, 'prompt_tokens': 141, 'total_tokens': 186, 'completion_time': 0.046654898, 'completion_tokens_details': {'reasoning_tokens': 18}, 'prompt_time': 0.008063112, 'prompt_tokens_details': None, 'queue_time': 0.284725709, 'total_time': 0.05471801}, 'model_name': 'openai/gpt-oss-20b', 'system_fingerprint': 'fp_9340e7d14d', 'service_tier': 'on_demand', 'finish_reason': 'tool_calls', 'logprobs': None, 'model_provider': 'groq'}, id='lc_run--01a22121-ef82-7272-988d-5dbf8c15d78d-0', tool_calls=[{'name': 'get_exchange_rate', 'args': {'currency_pair': 'USD_EUR'}, 'id': 'fc_2bcbd118-35f4-4ea1-9e66-fddd20b7462e', 'type': 'tool_call'}], invalid_tool_calls=[], usage_metadata={'input_tokens': 141, 'output_tokens': 45, 'total_tokens': 186, 'output_token_details': {'reasoning': 18}})]
+
+
+Message list in step2 ->  [{'role': 'user', 'content': "What's the exchange rate for USD to EUR?"}, AIMessage(content='', additional_kwargs={'reasoning_content': 'User asks for exchange rate USD to EUR. We can call get_exchange_rate function.', 'tool_calls': [{'id': 'fc_674c78e6-e01a-4575-b9a8-1df9ac328f70', 'function': {'arguments': '{"currency_pair":"USD_EUR"}', 'name': 'get_exchange_rate'}, 'type': 'function'}]}, response_metadata={'token_usage': {'completion_tokens': 45, 'prompt_tokens': 141, 'total_tokens': 186, 'completion_time': 0.047513016, 'completion_tokens_details': {'reasoning_tokens': 18}, 'prompt_time': 0.083917223, 'prompt_tokens_details': None, 'queue_time': 0.377040807, 'total_time': 0.131430239}, 'model_name': 'openai/gpt-oss-20b', 'system_fingerprint': 'fp_f102a3179c', 'service_tier': 'on_demand', 'finish_reason': 'tool_calls', 'logprobs': None, 'model_provider': 'groq'}, id='lc_run--01a22120-c0c3-7029-8b1c-c91286380c74-0', tool_calls=[{'name': 'get_exchange_rate', 'args': {'currency_pair': 'USD_EUR'}, 'id': 'fc_674c78e6-e01a-4575-b9a8-1df9ac328f70', 'type': 'tool_call'}], invalid_tool_calls=[], usage_metadata={'input_tokens': 141, 'output_tokens': 45, 'total_tokens': 186, 'output_token_details': {'reasoning': 18}}), ToolMessage(content='0.92', name='get_exchange_rate', tool_call_id='fc_674c78e6-e01a-4575-b9a8-1df9ac328f70')]

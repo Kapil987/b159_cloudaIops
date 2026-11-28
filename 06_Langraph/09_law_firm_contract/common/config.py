@@ -36,4 +36,8 @@ BEDROCK_MODEL_ID = os.getenv("BEDROCK_MODEL_ID", "amazon.nova-micro-v1:0")
 # v2 only: Postgres with the contract metadata table
 POSTGRES_DSN = os.getenv("POSTGRES_DSN", "postgresql://lawfirm:lawfirm@localhost:5433/lawfirm")
 
+# v3 only: signs the login cookie. Leave empty in development and the app makes a
+# random one at start-up (everyone is logged out when it restarts).
+SESSION_SECRET = os.getenv("SESSION_SECRET", "")
+
 AS_OF_DATE = date.fromisoformat(os.getenv("AS_OF_DATE", "2026-12-01"))

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contract Assistant · Sharma &amp; Co</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23207a7a' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 4v16M8 20h8M4 7h16'/%3E%3Cpath d='M4 7l-2.5 6a3 3 0 0 0 5 0L4 7zM20 7l-2.5 6a3 3 0 0 0 5 0L20 7z'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+  <!-- One icon set, drawn here once and reused with <use>. Same 1.75 stroke everywhere. -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 4v16M8 20h8M4 7h16"/><path d="M4 7l-2.5 6a3 3 0 0 0 5 0L4 7zM20 7l-2.5 6a3 3 0 0 0 5 0L20 7z"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></symbol>
+    <symbol id="i-stop" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="1.5"/></symbol>
+    <symbol id="i-logout" viewBox="0 0 24 24"><path d="M10 4H5v16h5M14 8l4 4-4 4M18 12H9"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-minus" viewBox="0 0 24 24"><path d="M7 12h10"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 9v4.5M12 17v.01M10.3 4.2L2.8 17.4A2 2 0 0 0 4.5 20.4h15a2 2 0 0 0 1.7-3L13.7 4.2a2 2 0 0 0-3.4 0z"/></symbol>
+  </svg>
+
+  <p id="sr-status" class="sr-only" role="status"></p>
+
+  <!-- Screen 1: mock login -->
+  <main id="login" class="login" hidden>
+    <div class="login-panel">
+      <svg class="logo" aria-hidden="true"><use href="#i-scale"/></svg>
+      <h1>Contract Assistant</h1>
+      <p class="muted">Sharma &amp; Co. This is a mock login for the course: pick an attorney. There is no password.</p>
+      <ul id="user-list" class="user-list" aria-label="Attorneys">
+        <li class="skel" aria-hidden="true"></li>
+        <li class="skel" aria-hidden="true"></li>
+      </ul>
+      <p id="login-error" class="alert" role="alert" hidden></p>
+    </div>
+  </main>
+
+  <!-- Screen 2: the chat -->
+  <div id="app" class="app" hidden>
+    <aside class="side">
+      <div class="brand">
+        <svg class="logo" aria-hidden="true"><use href="#i-scale"/></svg>
+        <div>
+          <strong>Contract Assistant</strong>
+          <span>Sharma &amp; Co</span>
+        </div>
+      </div>
+
+      <section class="who" aria-label="Logged in attorney">
+        <span id="who-avatar" class="avatar" aria-hidden="true"></span>
+        <div>
+          <strong id="who-name"></strong>
+          <span id="who-team"></span>
+          <code id="who-client" title="Set by the server from your login. The model never sees or changes it."></code>
+        </div>
+      </section>
+
+      <dl class="meta">
+        <dt>Demo date</dt>
+        <dd id="as-of"></dd>
+        <dd class="meta-note">Fixed, so the same question gives the same answer every time.</dd>
+      </dl>
+
+      <p class="side-note">Answers come only from this client's contracts.</p>
+
+      <button id="logout" class="btn-quiet" type="button">
+        <svg class="icon" aria-hidden="true"><use href="#i-logout"/></svg>
+        <span>Log out</span>
+      </button>
+    </aside>
+
+    <section class="main">
+      <div id="thread" class="thread" tabindex="-1">
+        <div id="thread-inner" class="thread-inner"></div>
+      </div>
+
+      <form id="composer" class="composer" autocomplete="off">
+        <div class="composer-inner">
+          <label for="question" class="sr-only">Your question</label>
+          <textarea id="question" rows="1" maxlength="1000" placeholder="Ask about this client's contracts"></textarea>
+          <button id="send" class="send" type="submit" aria-label="Send question" disabled>
+            <svg class="icon" aria-hidden="true"><use href="#i-send"/></svg>
+          </button>
+        </div>
+        <p class="composer-hint">Enter to send, Shift+Enter for a new line.</p>
+      </form>
+    </section>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
