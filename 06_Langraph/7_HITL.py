@@ -1,18 +1,22 @@
-from dotenv import load_dotenv
-load_dotenv()
+
 
 import os
+
+from dotenv import load_dotenv
+
+load_dotenv()
 os.environ["GROQ_API_KEY"] = os.getenv("GROQ_API_KEY")
 
-from langchain.chat_models import init_chat_model
 from typing import Annotated
-from typing_extensions import TypedDict
-from langgraph.graph import StateGraph, START, END
-from langgraph.graph.message import add_messages
+
+from langchain.chat_models import init_chat_model
 from langchain_core.tools import tool
-from langgraph.prebuilt import ToolNode, tools_condition
 from langgraph.checkpoint.memory import MemorySaver
-from langgraph.types import interrupt, Command
+from langgraph.graph import END, START, StateGraph
+from langgraph.graph.message import add_messages
+from langgraph.prebuilt import ToolNode, tools_condition
+from langgraph.types import Command, interrupt
+from typing_extensions import TypedDict
 
 
 class State(TypedDict):
@@ -48,7 +52,7 @@ def buy_stocks(symbol: str, quantity: int, total_price: float) -> str:
 
 tools = [get_stock_price, buy_stocks]
 
-llm = init_chat_model("groq:qwen/qwen3-32b")
+llm = init_chat_model("groq:qwen/qwen3.8-27b")
 llm_with_tools = llm.bind_tools(tools)
 
 def chatbot_node(state: State):

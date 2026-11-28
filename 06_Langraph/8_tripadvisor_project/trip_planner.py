@@ -22,13 +22,14 @@ import os
 from typing import TypedDict
 
 from dotenv import load_dotenv
+
 load_dotenv()
 os.environ["GROQ_API_KEY"] = os.getenv("GROQ_API_KEY")
 
 from langchain.chat_models import init_chat_model
-from langgraph.graph import StateGraph, START, END
+from langgraph.graph import END, START, StateGraph
 
-llm = init_chat_model("groq:qwen/qwen3-32b")
+llm = init_chat_model("groq:qwen/qwen3.8-27b")
 
 
 class TravelState(TypedDict):
