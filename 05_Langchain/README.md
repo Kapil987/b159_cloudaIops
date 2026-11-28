@@ -116,6 +116,7 @@ try:
 except ValidationError as e:
     print(e)                                           # raises
 ```
+why: all 3 fields have wrong type
 
 **Main differences**
 
